@@ -1,3 +1,4 @@
+import java.util.Iterator;
 import java.util.LinkedList;
 
 
@@ -46,6 +47,32 @@ public class Graphe {
 		
 		this.aretes = aretes;
 		this.nbAretes = aretes.size();
+		
+	}
+	
+	public LinkedList<Arete> aretesCommencantParNoeud(int num) {
+		
+		LinkedList<Arete> aretesNoeud = new LinkedList<Arete>();
+		for (Iterator<Arete> i = this.aretes.iterator(); i.hasNext();) {
+			Arete arete = i.next();
+			if (arete.noeudDep.num == num) {
+				aretesNoeud.add(arete);
+			}
+		}
+		return aretesNoeud;
+		
+	}
+	
+	public LinkedList<Arete> aretesFinissantParNoeud(int num) {
+		
+		LinkedList<Arete> aretesNoeud = new LinkedList<Arete>();
+		for (Iterator<Arete> i = this.aretes.iterator(); i.hasNext();) {
+			Arete arete = i.next();
+			if (arete.noeudFin.num == num) {
+				aretesNoeud.add(arete);
+			}
+		}
+		return aretesNoeud;
 		
 	}
 	
