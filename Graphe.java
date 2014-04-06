@@ -10,6 +10,8 @@ public class Graphe {
 		
 		
 		
+		this.nbAretes = aretes.size();
+		
 	}
 	
 }
