@@ -14,4 +14,10 @@ public class Arete {
 		
 	}
 	
+	public String toString() {
+		
+		return noeudDep.toString() + "->" + noeudFin.toString();
+		
+	}
+	
 }

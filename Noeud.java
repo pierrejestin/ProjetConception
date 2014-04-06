@@ -9,4 +9,10 @@ public class Noeud {
 		
 	}
 	
+	public String toString() {
+		
+		return this.num + "";
+		
+	}
+	
 }
