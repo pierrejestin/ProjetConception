@@ -7,15 +7,12 @@ public class Utilisateur {
 	int poids;
 	LinkedList<Arete> route;
 	int latence;
-	Graphe graphe;
 	
-	public Utilisateur(int num, int poids, Graphe graphe) {
+	public Utilisateur(int num, int poids) {
 		
 		this.num = num;
 		this.poids = poids;
-
 		this.latence = 0;
-		this.graphe = graphe;
 		
 	}
 	

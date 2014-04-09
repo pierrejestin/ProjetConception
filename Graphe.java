@@ -13,7 +13,7 @@ public class Graphe {
 		Noeud[][] noeuds = new Noeud[n][m];
 		int num = 2;
 		for (int i = 0; i < n; i++) {
-			for (int j = 0; j <= Math.random()*(m-1); j++) {
+			for (int j = 0; j < Math.random()*m; j++) {
 				noeuds[i][j] = new Noeud(num);
 				num++;
 			}
