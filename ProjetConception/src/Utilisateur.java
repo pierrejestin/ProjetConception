@@ -21,7 +21,23 @@ public class Utilisateur {
 	
 	public String toString() {
 		
-		return "Utilisateur " + this.num + " : " + this.meilleureRoute.toString();
+		String chemin = "Utilisateur " + this.num + " : 1";
+		int numPrec = 1;
+		boolean erreur = false;
+		for (Iterator<Arete> i = this.route.iterator(); i.hasNext();) {
+			Arete a = i.next();
+			if (a.noeudDep.num == numPrec) {
+				if (numPrec != 1)
+					chemin = chemin + "->" + numPrec;
+				numPrec = a.noeudFin.num;
+			}
+			else
+				erreur = true;
+		}
+		if (erreur)
+			return "Utilisateur " + this.num + " : Erreur";
+		else
+			return chemin;
 		
 	}
 	

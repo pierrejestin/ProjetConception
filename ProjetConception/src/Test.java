@@ -5,7 +5,7 @@ public class Test {
 
 	public static void main(String[] args) {
 		
-		Graphe graphe = new Graphe(10,10);
+		Graphe graphe = new Graphe(4,5);
 		System.out.println(graphe.aretes);
 		
 		LinkedList<Utilisateur> utilisateurs = new LinkedList<Utilisateur>();
@@ -19,13 +19,10 @@ public class Test {
 		for (int j=0; j <=0 ; j++){
 			iteration.reinitialiser(graphe, utilisateurs);
 			utilisateurs = iteration.itererAleatoire(graphe, utilisateurs);
-			//	System.out.println(utilisateurs);
+			System.out.println(utilisateurs);
 			System.out.println(iteration.calculerMeilleureLatenceMoyenne(utilisateurs));
 		}
 			
-		
 	}
 	
-
-
 }

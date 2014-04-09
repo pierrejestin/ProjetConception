@@ -31,6 +31,7 @@ public class Iteration {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	public LinkedList<Utilisateur> itererAleatoire(Graphe graphe, LinkedList<Utilisateur> utilisateurs){
 		
 	// Initialisation	
