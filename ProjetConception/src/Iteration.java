@@ -6,6 +6,7 @@ public class Iteration {
 
 	int N;
 	double T;
+	double k;
 	double TDeb;
 	double TFin;
 	double probaDeb;
@@ -20,6 +21,7 @@ public class Iteration {
 		this.TDeb = -1/(Math.log(this.probaDeb));
 		this.TFin = -1/(Math.log(this.probaFin));
 		this.T=TDeb;
+		this.k = 0;
 		this.latenceMoy=0;
 	}
 	
@@ -39,7 +41,6 @@ public class Iteration {
 		for(Iterator<Utilisateur> i = utilisateurs.iterator(); i.hasNext();){
 			Utilisateur u = i.next();
 			attribuerRouteAleatoire(graphe,u);
-
 		}
 		
 
@@ -47,7 +48,10 @@ public class Iteration {
 		for(int j=1 ; j<=this.N ; j++) {
 			
 			this.latenceMoy = calculerLatenceMoyenne(utilisateurs);
-			if (j == 1) this.meilleureLatenceMoy = this.latenceMoy;
+			if (j == 1) {
+				this.meilleureLatenceMoy = this.latenceMoy;
+				this.k = this.latenceMoy;
+			}
 				
 		
 			// Détermination d'une modification élémentaire aléatoire à réaliser
@@ -72,7 +76,7 @@ public class Iteration {
 			
 			// 
 			double nouvelleLatenceMoy = calculerLatenceMoyenne(utilisateurs);
-			double probaAcceptation = Math.exp(-(nouvelleLatenceMoy-this.latenceMoy)/this.latenceMoy*this.T);
+			double probaAcceptation = Math.exp(-(nouvelleLatenceMoy-this.latenceMoy)/this.k*this.T);
 			if (!(nouvelleLatenceMoy<this.latenceMoy || Math.random() < probaAcceptation)) {
 				changerChemin(areteAj1 , areteAj2 , areteSup1 , areteSup2 , utilisateurs, utilisateurModifie);
 			}
@@ -88,7 +92,10 @@ public class Iteration {
 			}
 			
 			// Maj de la température
-			this.T= this.T * Math.pow(this.TFin/this.TDeb,1/(N-1));		
+			this.T= this.T * Math.pow(this.TFin/this.TDeb,1/(N-1));
+			
+			// Maj de k
+			this.k = (j*this.k + this.latenceMoy)/(j+1);
 			
 			// Print de la latence moyenne
 			System.out.println(this.meilleureLatenceMoy);
