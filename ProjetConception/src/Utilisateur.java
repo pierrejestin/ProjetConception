@@ -41,5 +41,44 @@ public class Utilisateur {
 		
 	}
 	
+	public void  attribuerRouteAleatoire(Routage routage){
+		
+		LinkedList<Arete> route=new LinkedList<Arete>();
+		int num=1;
+		for (int i=1 ; i<=routage.graphe.n+1 ; i++){
+			
+			LinkedList<Arete> cheminsPossibles = routage.graphe.aretesCommencantParNoeud(num);
+			Arete cheminChoisi = cheminsPossibles.get((int) (Math.random()*cheminsPossibles.size()));
+			num = cheminChoisi.noeudFin.num;
+			route.add(cheminChoisi);
+			cheminChoisi.cout += this.poids;
+			
+		}
+		this.route=route;
+	}
+	
+	public void calculerLatence(){
+		int latence=0;
+		for (Iterator<Arete> i = this.route.iterator(); i.hasNext();){
+			Arete arete = i.next();
+			latence += arete.cout;
+		}
+		this.latence = latence;
+	}
+	
+	public void changerChemin(Modification modif) {
+		
+		modif.areteSup1.cout -= this.poids;
+		modif.areteSup2.cout -= this.poids;
+		modif.areteAj1.cout += this.poids;
+		modif.areteAj2.cout += this.poids;
+		int i = this.route.indexOf(modif.areteSup1);
+		this.route.remove(modif.areteSup1);
+		this.route.add(i, modif.areteAj1);
+		i = this.route.indexOf(modif.areteSup2);
+		this.route.remove(modif.areteSup2);
+		this.route.add(i, modif.areteAj2);
+		
+	}
 	
 }
