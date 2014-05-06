@@ -2,6 +2,7 @@
 
 public class IterationRecuit {
 
+	// Paramètres de l'algorithme de recuit
 	int N;
 	double T;
 	double k;
@@ -25,16 +26,22 @@ public class IterationRecuit {
 		
 	}
 
+	
 	public Probleme iterer(Probleme probleme) {
 		
+		// Initialisation
 		probleme.initialiser();
 		this.energie = probleme.calculerEnergie();
 		this.meilleureEnergie = this.energie;
 		
+		// Itérations
 		for(int j=1 ; j<=this.N ; j++) {
+			// Mutation élémentaire
 			probleme.modifElem();
 			double nouvelleEnergie = probleme.calculerEnergie();
 			double probaAcceptation = Math.exp(-(nouvelleEnergie-this.energie)/this.k*this.T);
+			
+			// Examen de l'effet de la modification effectuée
 			if (!(nouvelleEnergie<this.energie || Math.random() < probaAcceptation)) {
 				probleme.annulerModif();
 			}		
@@ -46,18 +53,19 @@ public class IterationRecuit {
 				} 
 			}
 			
-			// Maj de la température
+			// Mise à jour de la température
 			this.T= this.T * Math.pow(this.TFin/this.TDeb,1/(N-1));
 			
-			// Maj de k
+			// Mise à jour de k
 			this.k = (j*this.k + this.energie)/(j+1);
 			
-			// Print de la latence moyenne
+			// Impression de la latence moyenne
 			System.out.println(this.meilleureEnergie);
 			
 		}
 		
-		return probleme;
+		// Retour de la solution
+		return probleme; 
 	
 	}
 

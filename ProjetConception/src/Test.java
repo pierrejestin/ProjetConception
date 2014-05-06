@@ -5,12 +5,14 @@ public class Test {
 
 	public static void main(String[] args) {
 		
-		int longueurGraphe = 105;
-		int hauteurGraphe = 182;
-		int nbUtilisateurs = 60;
-		int nbIterations = 1;
+		// Paramètres
+		int longueurGraphe = 5;
+		int hauteurGraphe = 4;
+		int nbUtilisateurs = 8;
+		int nbIterations = 1; // M
 		int N = 100;
 		
+		// Création du graphe et des utilisateurs
 		Graphe graphe = new Graphe(longueurGraphe,hauteurGraphe);
 		System.out.println(graphe.aretes);
 		
@@ -19,14 +21,15 @@ public class Test {
 			utilisateurs.add(new Utilisateur(i+1, 1)); //Math.random()*10
 		}
 		
-		Routage routage = new Routage(graphe,utilisateurs);
-		
+		// Création des classes métier
+		Routage routage = new Routage(graphe,utilisateurs);		
 		IterationRecuit iteration = new IterationRecuit(N);
 		
-		for (int j=0; j < nbIterations ; j++){
-			routage.reinitialiser();
+		// nbIterations itérations de l'algorithme de recuit
+		for (int j=0; j < nbIterations ; j++){  // M*N itérations au total
 			routage = (Routage) iteration.iterer(routage);
-			System.out.println(iteration.meilleureEnergie);
+			// Affichage de la solution trouvée par une itération de l'algorithme de recuit
+			System.out.println(iteration.meilleureEnergie); 
 		}
 			
 	}

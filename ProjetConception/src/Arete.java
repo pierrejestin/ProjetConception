@@ -4,7 +4,7 @@ public class Arete {
 	Noeud noeudDep;
 	Noeud noeudFin;
 	int num;
-	double cout;
+	double cout; // somme des poids des utilisateurs utilisant l'arête
 	
 	public Arete(){
 		
