@@ -5,11 +5,26 @@
  */
 
 public abstract class Probleme {
+	
+	public Energie E;
+	public Mutation mutation;
 
-	public abstract void initialiser(); // initialisation du problème: attribution de routes aléatoires
-	public abstract double calculerEnergie(); // calcule et retourne l'énergie (ex: la latance)
-	public abstract void modifElem(); // effectue une mutation élémentaire du problème
-	public abstract void annulerModif(); // annule la dernière mutation élémentaire effectuée
+	public abstract void initialiser(); // initialisation du problème: attribution de routes aléatoires	 
 	public abstract void sauvegarderSolution(); // sauvegarde la solution actuelle dans une variable
+	
+	// Calcule et retourne l'énergie (ex: la latance)
+	public double calculerEnergie(){
+		return this.E.calculer(this);
+	}
+	
+	// Effectue une mutation élémentaire du problème
+	public void modifElem(){
+		this.mutation.faire(this);
+	}
+	
+	// Annule la dernière mutation élémentaire effectuée
+	public void annulerModif(){
+		this.mutation.defaire(this);
+	}
 	
 }

@@ -21,8 +21,9 @@ public class Test {
 			utilisateurs.add(new Utilisateur(i+1, 1)); //Math.random()*10
 		}
 		
+		
 		// Création des classes métier
-		Routage routage = new Routage(graphe,utilisateurs);		
+		Routage routage = new Routage(graphe , utilisateurs, new LatenceMoyenne(), new ModifAleatoireRoutage());		
 		IterationRecuit iteration = new IterationRecuit(N);
 		
 		// nbIterations itérations de l'algorithme de recuit
