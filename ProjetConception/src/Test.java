@@ -8,7 +8,7 @@ public class Test {
 		// Paramètres
 		int longueurGraphe = 5;
 		int hauteurGraphe = 4;
-		int nbUtilisateurs = 8;
+		int nbUtilisateurs = 15;
 		int nbIterations = 1; // M
 		int N = 100;
 		

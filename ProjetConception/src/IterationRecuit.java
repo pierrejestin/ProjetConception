@@ -60,7 +60,8 @@ public class IterationRecuit {
 			this.k = (j*this.k + this.energie)/(j+1);
 			
 			// Impression de la latence moyenne
-			System.out.println(this.meilleureEnergie);
+			System.out.print("E = "+(double)((int)(this.energie*100))/100+"   ");
+			System.out.println("Ebest = "+(double)((int)(this.meilleureEnergie*100))/100);
 			
 		}
 		
