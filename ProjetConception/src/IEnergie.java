@@ -1,5 +1,5 @@
 
-public interface Energie {
+public interface IEnergie {
 
 	public double calculer(Probleme probleme);
 		

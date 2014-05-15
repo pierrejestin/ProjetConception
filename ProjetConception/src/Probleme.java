@@ -6,8 +6,8 @@
 
 public abstract class Probleme {
 	
-	public Energie E;
-	public Mutation mutation;
+	public IEnergie E;
+	public IMutation mutation;
 
 	public abstract void initialiser(); // initialisation du problème: attribution de routes aléatoires	 
 	public abstract void sauvegarderSolution(); // sauvegarde la solution actuelle dans une variable

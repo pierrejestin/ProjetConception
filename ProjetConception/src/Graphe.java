@@ -1,115 +1,65 @@
 import java.util.Iterator;
-import java.util.LinkedList;
+
 
 
 public class Graphe {
 
-	LinkedList<Arete> aretes; // ensemble des arêtes constituant le graphe
-	int nbAretes; 
+	Noeud[] noeuds;
 	int n; // longueur du graphe
 	int m; // hauteur du graphe
+	int nbNoeuds;
 	
 	public Graphe(int n, int m) {
 		
 		this.n=n;
 		this.m=m;
+		this.nbNoeuds = n*m+2;
+		this.noeuds = new Noeud[n*m+2];
 		
 		// Création des noeuds
-			Noeud source = new Noeud(1);
-			
-			Noeud[][] noeuds = new Noeud[n][m]; 
-			
-			int num = 2;
-			for (int i = 0; i < n; i++) {
-			//	for (int j = 0; j < Math.random()*m; j++) {
-				for (int j = 0; j < m; j++) {
-					noeuds[i][j] = new Noeud(num);
-					num++;
-				}
-			}
-			
-			Noeud puits = new Noeud(num);
+		for (int k=0; k<n*m+2; k++){
+			this.noeuds[k] = new Noeud(k);
+		}	
+	}
+	
+	
+	// Réinitialisation du coût des arêtes à 0
+	public void initialiser(){
 		
-		// Attribution des noeuds aux arêtes	
-			
-			num = 1;
-			LinkedList<Arete> aretes = new LinkedList<Arete>();
-			
-			for (int i = 0; i < m; i++) {
-				if (noeuds[0][i] != null) {
-					aretes.add(new Arete(source, noeuds[0][i], num));
-					num++;
-				}
+	// Affectation des HashMaps	
+	
+			// Source
+			for (int j = 1; j <= m; j++) {
+				this.noeuds[0].couts.put(this.noeuds[j], 0.0);
 			}
 			
-			for (int i = 0; i < (n-1); i++) {
-				for (int j = 0; j < m; j++) {
-					for (int k = 0; k < m; k++) {
-						if (noeuds[i][j] != null && noeuds[i+1][k] != null) {
-							aretes.add(new Arete(noeuds[i][j], noeuds[i+1][k], num));
-							num++;
-						}
+			// Noeuds
+			for (int i = 1; i <= n-1; i++) {
+			//	for (int j = 0; j < Math.random()*m; j++) {
+				for (int j = 1; j <= m; j++) {
+					for (int k = 1; k <= m; k++){
+						this.noeuds[(i-1)*m+j].couts.put(this.noeuds[i*m+k], 0.0);
 					}
 				}
 			}
 			
-			for (int i = 0; i < m; i++) {
-				if (noeuds[n-1][i] != null) {
-					aretes.add(new Arete(noeuds[n-1][i], puits, num));
-					num++;
-				}
+			// Puits
+			for (int j = 1; j <= m; j++){
+				this.noeuds[(n-1)*m+j].couts.put(this.noeuds[n*m+1], 0.0);
 			}
-		
-			
-		this.aretes = aretes;
-		this.nbAretes = aretes.size();
-		
+			System.out.println(this);
 	}
 	
-	// Retourne les arêtes commençant par le noeud 'num'
-	public LinkedList<Arete> aretesCommencantParNoeud(int num) {
-		
-		LinkedList<Arete> aretesNoeud = new LinkedList<Arete>();
-		for (Iterator<Arete> i = this.aretes.iterator(); i.hasNext();) {
-			Arete arete = i.next();
-			if (arete.noeudDep.num == num) {
-				aretesNoeud.add(arete);
+	public String toString(){
+		String str = "[";
+		for (int i=0; i<n*m+1;i++){
+			for (Iterator<Noeud> it = this.noeuds[i].couts.keySet().iterator();it.hasNext();){
+				Noeud noeud = it.next();
+				str+=(this.noeuds[i].toString()+"->"+noeud.toString()+" , ");
+				
 			}
 		}
-		return aretesNoeud;
-		
-	}
-	
-	// Retourne les arêtes finissant par le noeud 'num'	
-	public LinkedList<Arete> aretesFinissantParNoeud(int num) {
-		
-		LinkedList<Arete> aretesNoeud = new LinkedList<Arete>();
-		for (Iterator<Arete> i = this.aretes.iterator(); i.hasNext();) {
-			Arete arete = i.next();
-			if (arete.noeudFin.num == num) {
-				aretesNoeud.add(arete);
-			}
-		}
-		return aretesNoeud;
-		
-	}
-	
-	// Retourne l'arête reliant le noeud 'num1' au noeud 'num2'
-	public Arete areteEntreNoeuds(int num1, int num2){
-		for (Iterator<Arete> i = this.aretes.iterator(); i.hasNext();) {
-			Arete arete = i.next();
-			if (arete.noeudFin.num == num2 && arete.noeudDep.num==num1) {
-				return arete;
-			}
-		}
-		return null;
-	}
-	
-	// Réinitialisation du coût des arêtes à 0
-	public void initialiser(){
-		for (Iterator<Arete> i = this.aretes.iterator(); i.hasNext();) {
-			i.next().cout=0;
-		}
+		return str+"]";
 	}
 		
 	

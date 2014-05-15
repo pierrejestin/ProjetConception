@@ -1,6 +1,6 @@
 
 
-public class IterationRecuit {
+public class RecuitSimple {
 
 	// Paramètres de l'algorithme de recuit
 	int N;
@@ -13,7 +13,7 @@ public class IterationRecuit {
 	double energie;
 	double meilleureEnergie;
 	
-	public IterationRecuit(int N) {
+	public RecuitSimple(int N) {
 		
 		this.probaDeb=0.5;
 		this.probaFin=0.1;
@@ -59,9 +59,10 @@ public class IterationRecuit {
 			// Mise à jour de k
 			this.k = (j*this.k + this.energie)/(j+1);
 			
-			// Impression de la latence moyenne
-			System.out.print("E = "+(double)((int)(this.energie*100))/100+"   ");
-			System.out.println("Ebest = "+(double)((int)(this.meilleureEnergie*100))/100);
+			// Impression de l'énergie courante et de la meilleure énergie
+	//		System.out.print("E = "+(double)((int)(this.energie*100))/100+"   ");
+	//		System.out.println("Ebest = "+(double)((int)(this.meilleureEnergie*100))/100);
+
 			
 		}
 		

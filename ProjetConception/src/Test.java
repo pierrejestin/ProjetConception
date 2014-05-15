@@ -10,11 +10,10 @@ public class Test {
 		int hauteurGraphe = 4;
 		int nbUtilisateurs = 15;
 		int nbIterations = 1; // M
-		int N = 100;
+		int N = 10000;
 		
 		// Création du graphe et des utilisateurs
 		Graphe graphe = new Graphe(longueurGraphe,hauteurGraphe);
-		System.out.println(graphe.aretes);
 		
 		LinkedList<Utilisateur> utilisateurs = new LinkedList<Utilisateur>();
 		for (int i = 0; i < nbUtilisateurs; i++) {
@@ -23,14 +22,14 @@ public class Test {
 		
 		
 		// Création des classes métier
-		Routage routage = new Routage(graphe , utilisateurs, new LatenceMoyenne(), new ModifAleatoireRoutage());		
-		IterationRecuit iteration = new IterationRecuit(N);
+		Routage routage = new Routage(graphe , utilisateurs, new LatenceMoyenne(), new MutationAleatoireRoutage());		
+		RecuitSimple iteration = new RecuitSimple(N);
 		
 		// nbIterations itérations de l'algorithme de recuit
 		for (int j=0; j < nbIterations ; j++){  // M*N itérations au total
 			routage = (Routage) iteration.iterer(routage);
 			// Affichage de la solution trouvée par une itération de l'algorithme de recuit
-			System.out.println(iteration.meilleureEnergie); 
+			System.out.println("Ebest"+(j+1)+" = "+iteration.meilleureEnergie); 
 		}
 			
 	}

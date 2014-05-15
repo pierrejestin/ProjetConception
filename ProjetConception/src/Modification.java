@@ -5,30 +5,17 @@
 public class Modification {
 
 	public Utilisateur utilisateurModifie;
-	// Arêtes supprimées de la route
-	public Arete areteSup1;
-	public Arete areteSup2;
-	// Arêtes ajoutées à la route
-	public Arete areteAj1;
-	public Arete areteAj2;
+	// Noeud supprimé de la route
+	public Noeud noeudSup;
+	// Noeud ajouté à la route
+	public Noeud noeudAj;
 	
-	public Modification(Arete areteSup1, Arete areteSup2, Arete areteAj1, Arete areteAj2, Utilisateur utilisateurModifie) {
+	public Modification(Noeud noeudSup,Noeud noeudAj,Utilisateur utilisateurModifie) {
 		
-		this.areteSup1 = areteSup1;
-		this.areteSup2 = areteSup2;
-		this.areteAj1 = areteAj1;
-		this.areteAj2 = areteAj2;
+		this.noeudSup = noeudSup;
+		this.noeudAj = noeudAj;
 		this.utilisateurModifie = utilisateurModifie;
 		
 	}
-	
-	public Modification() {
-		
-		this.areteSup1 = null;
-		this.areteSup2 = null;
-		this.areteAj1 = null;
-		this.areteAj2 = null;
-		this.utilisateurModifie = null;
-		
-	}
+
 }

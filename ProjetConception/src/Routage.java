@@ -16,11 +16,11 @@ public class Routage extends Probleme {
 	public Modification derniereModif;
 	
 	
-	public Routage(Graphe graphe, LinkedList<Utilisateur> utilisateurs, Energie E, Mutation mutation) {
+	public Routage(Graphe graphe, LinkedList<Utilisateur> utilisateurs, IEnergie E, IMutation mutation) {
 		
 		this.graphe = graphe;
 		this.utilisateurs = utilisateurs;
-		this.derniereModif = new Modification();
+		this.derniereModif = null;
 		this.E = E;
 		this.mutation = mutation;
 		
@@ -35,7 +35,7 @@ public class Routage extends Probleme {
 		for(Iterator<Utilisateur> i = this.utilisateurs.iterator(); i.hasNext();){
 			Utilisateur u = i.next();
 			u.attribuerRouteAleatoire(this);
-			u.meilleureRoute=new LinkedList<Arete>();
+			u.meilleureRoute=new LinkedList<Noeud>();
 		}
 	}
 	
@@ -46,7 +46,7 @@ public class Routage extends Probleme {
 		for(Iterator<Utilisateur> i = this.utilisateurs.iterator(); i.hasNext();){
 			Utilisateur u = i.next();
 			u.meilleureLatence=u.latence;
-			u.meilleureRoute=(LinkedList<Arete>) u.route.clone();
+			u.meilleureRoute=(LinkedList<Noeud>) u.route.clone();
 		}
 	}
 	

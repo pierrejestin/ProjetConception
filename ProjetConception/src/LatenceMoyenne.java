@@ -1,7 +1,7 @@
 import java.util.Iterator;
 
 
-public class LatenceMoyenne implements Energie {
+public class LatenceMoyenne implements IEnergie {
 
 	
 	public double calculer(Probleme probleme) {
