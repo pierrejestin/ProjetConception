@@ -1,12 +1,13 @@
-
-/* Première version simple de l'algorithme de recuit
- * La température est abaissée entre chaque itération
+/* Variante de l'algorithme de recuit
+ * On procède par parlliers de températures ie on effectue un certain nombre (M) d'itérations
+ * à la même température avant de la modifier 
  */
 
-public class RecuitSimple {
+public class RecuitParPalliers {
 
 	// Paramètres de l'algorithme de recuit
-	int N;
+	int N; // nombre de palliers
+	int M; // nombre d'itérations à chaque pallier
 	double T;
 	double k;
 	double TDeb;
@@ -16,11 +17,12 @@ public class RecuitSimple {
 	double energie;
 	double meilleureEnergie;
 	
-	public RecuitSimple(int N) {
+	public RecuitParPalliers(int N, int M) {
 		
 		this.probaDeb=0.5;
 		this.probaFin=0.1;
 		this.N=N;
+		this.M=M;
 		this.TDeb = -1/(Math.log(this.probaDeb));
 		this.TFin = -1/(Math.log(this.probaFin));
 		this.T=TDeb;
@@ -37,8 +39,10 @@ public class RecuitSimple {
 		this.energie = probleme.calculerEnergie();
 		this.meilleureEnergie = this.energie;
 		
+		int compteur = 0; // Compte le nombre d'itérations effectuées à un pallier de température
+		
 		// Itérations
-		for(int j=1 ; j<=this.N ; j++) {
+		for(int j=1 ; j<=this.N*this.M ; j++) {
 			// Mutation élémentaire
 			probleme.modifElem();
 			double nouvelleEnergie = probleme.calculerEnergie();
@@ -56,12 +60,23 @@ public class RecuitSimple {
 				} 
 			}
 			
-			// Mise à jour de la température
-			this.T= this.T * Math.pow(this.TFin/this.TDeb,1/(N-1));
+			compteur++;			
+
 			
-			// Mise à jour de k
-			this.k = (j*this.k + this.energie)/(j+1);
-			this.k = this.meilleureEnergie/j;
+			// Mise à jour de T et k au bout de M itérations sur le même pallier
+			if (compteur==this.M) {
+			
+				// Mise à jour de la température
+				this.T= this.T * Math.pow(this.TFin/this.TDeb,1/(this.N-1));
+
+				// Mise à jour de k
+			//	this.k = (j/M*this.k + this.energie)/(j/M+1);
+				this.k = this.meilleureEnergie/j;
+				
+				// Remise à zéro du compteur
+				compteur = 0;
+			
+			}
 			
 			// Impression de l'énergie courante et de la meilleure énergie
 	//		System.out.print("E = "+(double)((int)(this.energie*100))/100+"   ");
@@ -71,12 +86,7 @@ public class RecuitSimple {
 		}
 		
 		// Retour de la solution
-		
 		return probleme; 
 	
 	}
-
-	
 }
-
-

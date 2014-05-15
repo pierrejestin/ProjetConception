@@ -8,9 +8,10 @@ public class Test {
 		// Paramètres
 		int longueurGraphe = 5;
 		int hauteurGraphe = 4;
-		int nbUtilisateurs = 15;
-		int nbIterations = 1; // M
-		int N = 10000;
+		int nbUtilisateurs = 20;
+		int nbIterations = 1; // K
+		int N = 200;
+		int M = 10;
 		
 		// Création du graphe et des utilisateurs
 		Graphe graphe = new Graphe(longueurGraphe,hauteurGraphe);
@@ -23,14 +24,28 @@ public class Test {
 		
 		// Création des classes métier
 		Routage routage = new Routage(graphe , utilisateurs, new LatenceMoyenne(), new MutationAleatoireRoutage());		
-		RecuitSimple iteration = new RecuitSimple(N);
+		RecuitSimple recuitSimple = new RecuitSimple(N*M);
+		RecuitParPalliers recuitParPalliers = new RecuitParPalliers(N,M);
+		
+		
+		/* Test de la différence entre le recuit simple et le recuit par palliers */
+		Routage routage1 = (Routage) recuitSimple.iterer(routage);
+		System.out.println("Ebest Recuit simple = "+recuitSimple.meilleureEnergie+"   kfin= "+recuitSimple.k); 
+	
+		Routage routage2= (Routage) recuitParPalliers.iterer(routage);
+		System.out.println("Ebest Recuit par palliers = "+recuitParPalliers.meilleureEnergie+"   kfin= "+recuitParPalliers.k); 
+		
+		
+		/* Itération multiple de l'algortihme de recuit simple
 		
 		// nbIterations itérations de l'algorithme de recuit
-		for (int j=0; j < nbIterations ; j++){  // M*N itérations au total
-			routage = (Routage) iteration.iterer(routage);
+		for (int j=0; j < nbIterations ; j++){  // K*N itérations au total
+			routage = (Routage) recuitSimple.iterer(routage);
 			// Affichage de la solution trouvée par une itération de l'algorithme de recuit
-			System.out.println("Ebest"+(j+1)+" = "+iteration.meilleureEnergie); 
+			System.out.println("Ebest"+(j+1)+" = "+recuitSimple.meilleureEnergie); 
 		}
+		
+		*/
 			
 	}
 	
