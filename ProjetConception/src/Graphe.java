@@ -47,7 +47,7 @@ public class Graphe {
 			for (int j = 1; j <= m; j++){
 				this.noeuds[(n-1)*m+j].couts.put(this.noeuds[n*m+1], 0.0);
 			}
-			System.out.println(this);
+		//	System.out.println(this);
 	}
 	
 	public String toString(){

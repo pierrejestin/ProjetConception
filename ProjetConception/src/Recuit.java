@@ -1,9 +1,10 @@
-/* Variante de l'algorithme de recuit
+/*
+ * Variante de l'algorithme de recuit
  * On procède par parlliers de températures ie on effectue un certain nombre (M) d'itérations
  * à la même température avant de la modifier 
  */
 
-public class RecuitParPalliers {
+public class Recuit {
 
 	// Paramètres de l'algorithme de recuit
 	int N; // nombre de palliers
@@ -17,7 +18,7 @@ public class RecuitParPalliers {
 	double energie;
 	double meilleureEnergie;
 	
-	public RecuitParPalliers(int N, int M) {
+	public Recuit(int N, int M) {
 		
 		this.probaDeb=0.5;
 		this.probaFin=0.1;
@@ -46,7 +47,7 @@ public class RecuitParPalliers {
 			// Mutation élémentaire
 			probleme.modifElem();
 			double nouvelleEnergie = probleme.calculerEnergie();
-			double probaAcceptation = Math.exp(-(nouvelleEnergie-this.energie)/this.k*this.T);
+			double probaAcceptation = Math.exp(-(nouvelleEnergie-this.energie)/(this.k*this.T));
 			
 			// Examen de l'effet de la modification effectuée
 			if (!(nouvelleEnergie<this.energie || Math.random() < probaAcceptation)) {
@@ -61,26 +62,29 @@ public class RecuitParPalliers {
 			}
 			
 			compteur++;			
-
+			
+		//	this.k = (j*this.k + this.energie)/(j+1);
 			
 			// Mise à jour de T et k au bout de M itérations sur le même pallier
 			if (compteur==this.M) {
 			
 				// Mise à jour de la température
-				this.T= this.T * Math.pow(this.TFin/this.TDeb,1/(this.N-1));
+				//this.T= this.T * Math.pow(this.TFin/this.TDeb,1/(this.N-1));
+				this.T = j/(j+1)*this.T * Math.pow(this.TFin/this.TDeb,1/(this.N-1));
 
-				// Mise à jour de k
-			//	this.k = (j/M*this.k + this.energie)/(j/M+1);
-				this.k = this.meilleureEnergie/j;
+				// Mise à jour de k				
+			    this.k = this.meilleureEnergie;
 				
 				// Remise à zéro du compteur
 				compteur = 0;
 			
 			}
 			
+			System.out.println((double)((int)(this.energie*1000))/1000);
+			
 			// Impression de l'énergie courante et de la meilleure énergie
-	//		System.out.print("E = "+(double)((int)(this.energie*100))/100+"   ");
-	//		System.out.println("Ebest = "+(double)((int)(this.meilleureEnergie*100))/100);
+	//		System.out.print("E = "+(double)((int)(this.energie*1000))/1000+"   ");
+	//		System.out.println("Ebest = "+(double)((int)(this.meilleureEnergie*1000))/1000);
 
 			
 		}
