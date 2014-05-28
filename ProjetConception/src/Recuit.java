@@ -1,3 +1,5 @@
+import java.util.Random;
+
 /*
  * Variante de l'algorithme de recuit
  * On procède par parlliers de températures ie on effectue un certain nombre (M) d'itérations
@@ -33,10 +35,10 @@ public class Recuit {
 	}
 
 	
-	public Probleme iterer(Probleme probleme) {
+	public Probleme iterer(Probleme probleme, Random random) {
 		
 		// Initialisation
-		probleme.initialiser();
+		probleme.initialiser(random);
 		this.energie = probleme.calculerEnergie();
 		this.meilleureEnergie = this.energie;
 		

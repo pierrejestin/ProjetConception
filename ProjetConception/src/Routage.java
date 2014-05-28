@@ -1,5 +1,6 @@
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Random;
 
 /*
  * Problème du routage
@@ -28,15 +29,16 @@ public class Routage extends Probleme {
 	
 	
 	// Initialisation du problème: affectation de routes aléatoires
-	public void initialiser(){
+	public void initialiser(Random random){
 		
 		this.graphe.initialiser();
 		
 		for(Iterator<Utilisateur> i = this.utilisateurs.iterator(); i.hasNext();){
 			Utilisateur u = i.next();
-			u.attribuerRouteAleatoire(this);
+			u.attribuerRouteAleatoire(this, random);
 			u.meilleureRoute=new LinkedList<Noeud>();
 		}
+		
 	}
 	
 

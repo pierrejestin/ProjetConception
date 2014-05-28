@@ -16,20 +16,20 @@ public class MutationAleatoireRoutage implements IMutation {
 			Noeud noeudSup = null;
 			Boolean modifPossible=false;
 			while (!modifPossible){
-				int random = (int) (Math.random()*(tailleRoute-1)) + 1;
-				noeudSup = utilisateurModifie.route.get(random);
+				int rnd = (int) (Math.random()*(tailleRoute-1)) + 1;
+				noeudSup = utilisateurModifie.route.get(rnd);
 								
-				Noeud noeudPrec = utilisateurModifie.route.get(random-1);
+				Noeud noeudPrec = utilisateurModifie.route.get(rnd-1);
 				Set<Noeud> noeudsPossibles = noeudPrec.couts.keySet();
 				noeudAj = noeudSup;
 				if (noeudsPossibles.size()>=2){
 					while (noeudAj.equals(noeudSup)){
-						random = (int) (Math.random()*noeudsPossibles.size())+1;
+						rnd = (int) (Math.random()*noeudsPossibles.size())+1;
 						int compteur = 1;
 						Iterator<Noeud> it = noeudsPossibles.iterator();
 						while(it.hasNext()){
 						  Noeud v = it.next();
-						  if (compteur==random){
+						  if (compteur==rnd){
 							  noeudAj = v;
 						  }
 						  compteur++;
@@ -62,11 +62,5 @@ public class MutationAleatoireRoutage implements IMutation {
 		}
 		
 	}
-
-
-
-
-
-	
 	
 }
