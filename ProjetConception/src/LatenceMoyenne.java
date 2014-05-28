@@ -1,9 +1,7 @@
 import java.util.Iterator;
 
-
 public class LatenceMoyenne implements IEnergie {
 
-	
 	public double calculer(Probleme probleme) {
 		
 		Routage routage = (Routage)	probleme;

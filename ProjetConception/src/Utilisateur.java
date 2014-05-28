@@ -1,5 +1,6 @@
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Random;
 
 
 public class Utilisateur {
@@ -32,13 +33,13 @@ public class Utilisateur {
 	}
 	
 	// Méthode attribuant aléatoirement une route à l'utilisateur
-	public void  attribuerRouteAleatoire(Routage routage){
+	public void  attribuerRouteAleatoire(Routage routage, Random random){
 		LinkedList<Noeud> route=new LinkedList<Noeud>();
 		Noeud noeud=routage.graphe.noeuds[0];
 		route.add(noeud);
 		while (noeud.num<routage.graphe.nbNoeuds-1){
 			int nbPossiblites = noeud.couts.size();
-			int rand = ((int) (Math.random()*nbPossiblites)) + 1;
+			int rand = ((int) (random.nextDouble()*nbPossiblites)) + 1;
 			int compteur = 1;
 			Iterator<Noeud> it = noeud.couts.keySet().iterator();
 			while(it.hasNext()){

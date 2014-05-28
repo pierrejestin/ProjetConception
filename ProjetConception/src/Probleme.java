@@ -1,3 +1,5 @@
+import java.util.Random;
+
 /*
  * Classe abstraite représentant un problème générique soluble par recuit simulé
  * Pour résoudre un problème grâce au recuit il faut faire une classe fille qui implémente
@@ -9,7 +11,7 @@ public abstract class Probleme {
 	public IEnergie E;
 	public IMutation mutation;
 
-	public abstract void initialiser(); // initialisation du problème: attribution de routes aléatoires	 
+	public abstract void initialiser(Random random); // initialisation du problème: attribution de routes aléatoires	 
 	public abstract void sauvegarderSolution(); // sauvegarde la solution actuelle dans une variable
 	
 	// Calcule et retourne l'énergie (ex: la latance)
