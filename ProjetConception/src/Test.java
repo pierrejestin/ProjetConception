@@ -12,6 +12,7 @@ public class Test {
 		int nbIterations = 100; // K
 		int N = 1000;
 		int M = 1;
+		int test=0;
 		
 		// Création du graphe et des utilisateurs
 		Graphe graphe = new Graphe(longueurGraphe,hauteurGraphe);
