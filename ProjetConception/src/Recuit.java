@@ -69,8 +69,8 @@ public class Recuit {
 			if (compteur==this.M) {
 			
 				// Mise à jour de la température
-				//this.T= this.T * Math.pow(this.TFin/this.TDeb,1/(this.N-1));
-				this.T = j/(j+1)*this.T * Math.pow(this.TFin/this.TDeb,1/(this.N-1));
+				// this.T= this.T * Math.pow(this.TFin/this.TDeb,1/(this.N-1));
+				  this.T = j/(j+1)*this.T * Math.pow(this.TFin/this.TDeb,1/(this.N-1));
 
 				// Mise à jour de k				
 			    this.k = this.meilleureEnergie;
@@ -80,7 +80,7 @@ public class Recuit {
 			
 			}
 			
-			System.out.println((double)((int)(this.energie*1000))/1000);
+		//	System.out.println((double)((int)(this.energie*1000))/1000);
 			
 			// Impression de l'énergie courante et de la meilleure énergie
 	//		System.out.print("E = "+(double)((int)(this.energie*1000))/1000+"   ");
