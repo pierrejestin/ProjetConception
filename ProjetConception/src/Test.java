@@ -9,11 +9,10 @@ public class Test {
 		// Paramètres
 		int longueurGraphe = 10;
 		int hauteurGraphe = 6;
-		int nbUtilisateurs = 30;
+		int nbUtilisateurs = 50;
 		int nbIterations = 100; // K
-		int N = 1000;
-		int M = 1;
-		int test=0;
+		int N = 100;
+		int M = 10;
 
 		
 		// Seeds de l'aléatoire
@@ -32,16 +31,16 @@ public class Test {
 		
 		
 		// Création des classes métier
-		Routage routage = new Routage(graphe , utilisateurs, new LatenceMoyenne(), new MutationAleatoireRoutage());		
+		Routage routage = new Routage(graphe , utilisateurs, new LatenceMax(), new MutationAleatoireRoutage());		
 		Recuit recuit1 = new Recuit(N,M);
 		Recuit recuit2 = new Recuit(N*M,1);
 		
-		/* Tests pour Excel 
-		Routage solution = (Routage) recuitSimple.iterer(routage);
-		*/
+		/* Tests pour Excel : graphes sur un recuit
+		Routage solution = (Routage) recuit1.iterer(routage,random2);
+		 */
 		
 		
-		// Itération multiple de l'algortihme de recuit simple + recuit par palliers
+		/* Itération multiple de l'algortihme de recuit simple + recuit par palliers */
 		
 		Routage routage1 = routage;
 		System.out.println("EBestS");
@@ -58,6 +57,8 @@ public class Test {
 			// Affichage de la solution trouvée par une itération de l'algorithme de recuit
 			System.out.println(recuit2.meilleureEnergie); 
 		}
+		
+		
 		
 		/* Itération multiple de l'algortihme de recuit simple
 		

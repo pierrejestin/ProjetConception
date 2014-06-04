@@ -11,10 +11,12 @@ public class Recuit {
 	// Paramètres de l'algorithme de recuit
 	int N; // nombre de palliers
 	int M; // nombre d'itérations à chaque pallier
+	int W;
 	double T;
 	double k;
-	double TDeb;
+	double[] tabDeltaE;
 	double TFin;
+	double TDeb;
 	double probaDeb;
 	double probaFin;
 	double energie;
@@ -22,15 +24,13 @@ public class Recuit {
 	
 	public Recuit(int N, int M) {
 		
-		this.probaDeb=0.5;
-		this.probaFin=0.1;
+		this.probaDeb=0.3;
+		this.probaFin=0.01;
 		this.N=N;
 		this.M=M;
-		this.TDeb = -1/(Math.log(this.probaDeb));
-		this.TFin = -1/(Math.log(this.probaFin));
-		this.T=TDeb;
-		this.k = 0;
+		this.W=100;
 		this.energie=0;
+		this.tabDeltaE = new double[this.W];
 		
 	}
 
@@ -40,49 +40,77 @@ public class Recuit {
 		// Initialisation
 		probleme.initialiser(random);
 		this.energie = probleme.calculerEnergie();
-		this.meilleureEnergie = this.energie;
+		this.meilleureEnergie = this.energie;	
 		
-		int compteur = 0; // Compte le nombre d'itérations effectuées à un pallier de température
+		
+		double deltaE = 0;
+		int l=0;
+		while (l<this.W){			
+			probleme.modifElem();
+			double nouvelleEnergie = probleme.calculerEnergie();
+			double dE = nouvelleEnergie-this.energie;
+			if (dE>0){
+				deltaE=(l*deltaE+dE)/((double)(l+1.));
+				this.tabDeltaE[l] = dE;
+				l++;
+			}			
+		}	
+			
+		this.k = deltaE;
+		this.TDeb = (-1/Math.log(this.probaDeb));
+		this.T = this.TDeb;
+		this.TFin = (-1/Math.log(this.probaFin));
+		double coefProba = Math.pow((this.TFin/this.TDeb),(1./(double)(this.N-1)));
+		
+		int compteurPallier = 0; // Compte le nombre d'itérations effectuées à un pallier de température
+		int compteurDeltaE = 0;
+		double probaAcceptation = 0.0;
 		
 		// Itérations
 		for(int j=1 ; j<=this.N*this.M ; j++) {
 			// Mutation élémentaire
 			probleme.modifElem();
 			double nouvelleEnergie = probleme.calculerEnergie();
-			double probaAcceptation = Math.exp(-(nouvelleEnergie-this.energie)/(this.k*this.T));
+			deltaE = nouvelleEnergie-this.energie;
+			
+			if (deltaE>=0){
+				probaAcceptation = Math.exp(-(nouvelleEnergie-this.energie)/(this.k*this.T));
+
+				// Mise à jour de k
+				this.k = (this.W*this.k-this.tabDeltaE[compteurDeltaE]+deltaE)/((double)this.W) ;
+				this.tabDeltaE[compteurDeltaE] = deltaE;
+				compteurDeltaE = (compteurDeltaE + 1) % this.W;
+			}
+		//	System.out.println(probaAcceptation);	
+			
 			
 			// Examen de l'effet de la modification effectuée
-			if (!(nouvelleEnergie<this.energie || Math.random() < probaAcceptation)) {
+			if (!(deltaE<0 || Math.random() < probaAcceptation)) {
 				probleme.annulerModif();
 			}		
 			else { 
 				this.energie = nouvelleEnergie;
-				if(nouvelleEnergie<this.meilleureEnergie) {
+				if(deltaE<0) {
 					this.meilleureEnergie=nouvelleEnergie;
 					probleme.sauvegarderSolution();
 				} 
 			}
 			
-			compteur++;			
+			compteurPallier++;			
 			
-		//	this.k = (j*this.k + this.energie)/(j+1);
 			
-			// Mise à jour de T et k au bout de M itérations sur le même pallier
-			if (compteur==this.M) {
+			// Mise à jour de T au bout de M itérations sur le même pallier
+			if (compteurPallier==this.M) {
 			
 				// Mise à jour de la température
-				// this.T= this.T * Math.pow(this.TFin/this.TDeb,1/(this.N-1));
-				  this.T = j/(j+1)*this.T * Math.pow(this.TFin/this.TDeb,1/(this.N-1));
-
-				// Mise à jour de k				
-			    this.k = this.meilleureEnergie;
+				  this.T= this.T * coefProba;
 				
 				// Remise à zéro du compteur
-				compteur = 0;
+				compteurPallier = 0;
 			
 			}
 			
-		//	System.out.println((double)((int)(this.energie*1000))/1000);
+	//		System.out.println((double)((int)(this.energie*1000))/1000);
 			
 			// Impression de l'énergie courante et de la meilleure énergie
 	//		System.out.print("E = "+(double)((int)(this.energie*1000))/1000+"   ");
