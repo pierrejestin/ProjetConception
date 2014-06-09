@@ -9,10 +9,10 @@ public class Test {
 		// Paramètres
 		int longueurGraphe = 10;
 		int hauteurGraphe = 6;
-		int nbUtilisateurs = 50;
+		int nbUtilisateurs = 200;
 		int nbIterations = 1; // K
 		int N = 100;
-		int M = 10;
+		int M = 1;
 
 		
 		// Seeds de l'aléatoire
@@ -20,22 +20,28 @@ public class Test {
 		long seed2 = 44656887;					// Seed pour l'initialisation
 		Random random1 = new Random(seed1);
 		Random random2 = new Random(seed2);
-				
+
 		// Création du graphe et des utilisateurs
 		Graphe graphe = new Graphe(longueurGraphe,hauteurGraphe);
 		
 		LinkedList<Utilisateur> utilisateurs = new LinkedList<Utilisateur>();
 		for (int i = 0; i < nbUtilisateurs; i++) {
-			utilisateurs.add(new Utilisateur(i+1, random1.nextDouble()*10));
+			utilisateurs.add(new Utilisateur(i+1, random1.nextDouble()));
 		}
 		
 		
 		// Création des classes métier
-		Routage routage = new Routage(graphe , utilisateurs, new LatenceMax(), new MutationAleatoireRoutage());		
+		// Recuit
+		Routage routage = new Routage(graphe , utilisateurs, new LatenceMoyenne(), new MutationAleatoireRoutage());		
 		routage.initialiser(random2);
 		Recuit recuit1 = new Recuit(N,M);
 		Recuit recuit2 = new Recuit(N*M,1);
 		Recuit recuit3 = new Recuit(N,1);
+		
+		// Gradient
+		Routage routage4 = new Routage(graphe , utilisateurs, new LatenceMoyenne(), new MutationGradient());		
+		routage.initialiser(random2);
+		Gradient gradient = new Gradient(N*M);
 		
 		/* Tests pour Excel : graphes sur un recuit
 		Routage solution = (Routage) recuit1.iterer(routage,random2);
@@ -78,6 +84,16 @@ public class Test {
 		}
 		*/
 		
+		/* Itération de l'algorithme du gradient */
+		System.out.println("EBestG");
+		for (int j=0; j < nbIterations ; j++){  // K*N itérations au total
+			routage4.initialiser(random2);
+			gradient.energie = routage4.calculerEnergie();
+			routage4 = (Routage) gradient.iterer(routage4);
+			// Affichage de la solution trouvée par une itération de l'algorithme de recuit
+			System.out.println(gradient.energie); 
+		}
+		
 		/* Itération multiple de l'algortihme de recuit simple		
 		
 		// nbIterations itérations de l'algorithme de recuit
@@ -91,7 +107,7 @@ public class Test {
 		}
 		*/
 		
-		/* Itération du recuit avec réchauffement */
+		/* Itération du recuit avec réchauffement
 		
 		Routage routage3 = routage;
 		routage3.initialiser(random2);
@@ -102,6 +118,7 @@ public class Test {
 			System.out.println("Rechauffement");
 		}
 		
+		*/
 		
 	}
 	
