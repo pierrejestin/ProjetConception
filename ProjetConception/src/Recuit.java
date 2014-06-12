@@ -108,11 +108,11 @@ public class Recuit {
 			
 			}
 			
-	//		System.out.println((double)((int)(this.energie*1000))/1000);
+			System.out.println((double)((int)(this.energie*1000))/1000);
 			
 			// Impression de l'énergie courante et de la meilleure énergie
 	//		System.out.print("E = "+(double)((int)(this.energie*1000))/1000+"   ");
-			System.out.println("Ebest = "+(double)((int)(this.meilleureEnergie*1000))/1000);
+	//		System.out.println("Ebest = "+(double)((int)(this.meilleureEnergie*1000))/1000);
 
 			
 		}

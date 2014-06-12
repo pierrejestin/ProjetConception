@@ -9,9 +9,9 @@ public class Test {
 		// Paramètres
 		int longueurGraphe = 10;
 		int hauteurGraphe = 6;
-		int nbUtilisateurs = 50;
+		int nbUtilisateurs = 500;
 		int nbIterations = 1; // K
-		int N = 100;
+		int N = 100000;
 		int M = 10;
 
 		
@@ -26,12 +26,16 @@ public class Test {
 		
 		LinkedList<Utilisateur> utilisateurs = new LinkedList<Utilisateur>();
 		for (int i = 0; i < nbUtilisateurs; i++) {
-			utilisateurs.add(new Utilisateur(i+1, random1.nextDouble()*10));
+			utilisateurs.add(new Utilisateur(i+1, random1.nextDouble() )); // ((double)(i%5)/5.0)+0.1  //
+			/*
+			if (i<449) utilisateurs.add(new Utilisateur(i+1, 0.444 ) );
+			else utilisateurs.add(new Utilisateur(i+1, 1 ) ); 
+			 */
 		}
 		
 		
 		// Création des classes métier
-		Routage routage = new Routage(graphe , utilisateurs, new LatenceMax(), new MutationAleatoireRoutage());		
+		Routage routage = new Routage(graphe , utilisateurs, new LatenceMoyenne(), new MutationAleatoireRoutage());		
 		routage.initialiser(random2);
 		Recuit recuit1 = new Recuit(N,M);
 		Recuit recuit2 = new Recuit(N*M,1);
@@ -42,19 +46,19 @@ public class Test {
 		 */
 		
 		
-		/* Itération multiple de l'algortihme de recuit simple + recuit par palliers + recuit avec réchauffement
+		/* Itération multiple de l'algortihme de recuit simple + recuit par palliers + recuit avec réchauffement */
 		
 		Routage routage1 = routage;
-		System.out.println("EBestS");
+		//System.out.println("EBestS");
 		for (int j=0; j < nbIterations ; j++){  // K*N itérations au total
 			routage1.initialiser(random2);
 			recuit1.energie = routage1.calculerEnergie();
 			recuit1.meilleureEnergie = recuit1.energie;
 			routage1 = (Routage) recuit1.iterer(routage1);
 			// Affichage de la solution trouvée par une itération de l'algorithme de recuit
-			System.out.println(recuit1.meilleureEnergie); 
+			//System.out.println(recuit1.meilleureEnergie); 
 		}
-		
+		/*
 		Routage routage2 = routage;
 		System.out.println("EBestPP");
 		for (int j=0; j < nbIterations ; j++){  // K*N itérations au total
@@ -91,7 +95,7 @@ public class Test {
 		}
 		*/
 		
-		/* Itération du recuit avec réchauffement */
+		/* Itération du recuit avec réchauffement 
 		
 		Routage routage3 = routage;
 		routage3.initialiser(random2);
@@ -101,7 +105,7 @@ public class Test {
 			routage3 = (Routage) recuit3.iterer(routage3);
 			System.out.println("Rechauffement");
 		}
-		
+		*/
 		
 	}
 	
