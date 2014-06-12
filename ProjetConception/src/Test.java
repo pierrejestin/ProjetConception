@@ -10,9 +10,9 @@ public class Test {
 		int longueurGraphe = 10;
 		int hauteurGraphe = 6;
 		int nbUtilisateurs = 500;
-		int nbIterations = 1; // K
-		int N = 100000;
-		int M = 10;
+		int nbIterations = 100; // K
+		int N = 10000;
+		int M = 1;
 
 		
 		// Seeds de l'aléatoire
@@ -46,7 +46,7 @@ public class Test {
 		 */
 		
 		
-		/* Itération multiple de l'algortihme de recuit simple + recuit par palliers + recuit avec réchauffement */
+		/* Itération multiple de l'algortihme de recuit simple + recuit par palliers + recuit avec réchauffement 
 		
 		Routage routage1 = routage;
 		//System.out.println("EBestS");
@@ -58,6 +58,8 @@ public class Test {
 			// Affichage de la solution trouvée par une itération de l'algorithme de recuit
 			//System.out.println(recuit1.meilleureEnergie); 
 		}
+		*/
+		
 		/*
 		Routage routage2 = routage;
 		System.out.println("EBestPP");
@@ -82,7 +84,7 @@ public class Test {
 		}
 		*/
 		
-		/* Itération multiple de l'algortihme de recuit simple		
+		/* Itération multiple de l'algortihme de recuit simple*/
 		
 		// nbIterations itérations de l'algorithme de recuit
 		
@@ -91,9 +93,12 @@ public class Test {
 			recuit1.meilleureEnergie = recuit1.energie;
 			routage = (Routage) recuit1.iterer(routage);
 			// Affichage de la solution trouvée par une itération de l'algorithme de recuit
-			System.out.println(recuit1.meilleureEnergie); 
+			//System.out.println(recuit1.meilleureEnergie); 
 		}
-		*/
+		// Affichage de la solution trouvée par une itération de l'algorithme de recuit
+		for (int i = 0; i < N*M; i++) {
+			System.out.println(recuit1.energieMoy[i]/nbIterations); 
+		}
 		
 		/* Itération du recuit avec réchauffement 
 		
