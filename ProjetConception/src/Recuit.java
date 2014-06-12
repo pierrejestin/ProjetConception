@@ -20,6 +20,7 @@ public class Recuit {
 	double probaFin;
 	double energie;
 	double meilleureEnergie;
+	double[] energieMoy;
 	
 	public Recuit(int N, int M) {
 		
@@ -30,6 +31,7 @@ public class Recuit {
 		this.W=100;
 		this.energie=0;
 		this.tabDeltaE = new double[this.W];
+		this.energieMoy = new double[N*M];
 		
 	}
 
@@ -108,12 +110,12 @@ public class Recuit {
 			
 			}
 			
-			System.out.println((double)((int)(this.energie*1000))/1000);
+	//		System.out.println((double)((int)(this.energie*1000))/1000);
 			
 			// Impression de l'énergie courante et de la meilleure énergie
 	//		System.out.print("E = "+(double)((int)(this.energie*1000))/1000+"   ");
-	//		System.out.println("Ebest = "+(double)((int)(this.meilleureEnergie*1000))/1000);
-
+		//	System.out.println("Ebest = "+(double)((int)(this.meilleureEnergie*1000))/1000);
+			energieMoy[j - 1] += this.energie;
 			
 		}
 		
