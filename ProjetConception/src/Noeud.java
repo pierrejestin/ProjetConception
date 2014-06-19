@@ -4,7 +4,7 @@ import java.util.HashMap;
 public class Noeud {
 
 	int num;
-	HashMap<Noeud,Double> couts;
+	HashMap<Noeud,Double> couts; // voisins du noeud + cout pour les rejoindre
 	
 	public Noeud(int num) {
 		

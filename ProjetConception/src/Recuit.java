@@ -39,8 +39,6 @@ public class Recuit {
 	public Probleme iterer(Probleme probleme) {
 		
 		// Initialisation
-		// this.energie = probleme.calculerEnergie();
-		// this.meilleureEnergie = this.energie;	
 		
 		double deltaE = 0;
 		int l=0;
@@ -81,8 +79,7 @@ public class Recuit {
 				probaAcceptation = Math.exp(-(deltaE)/(this.k*this.T));
 
 				
-			}
-		//	System.out.println(probaAcceptation);	
+			}	
 			
 			// Examen de l'effet de la modification effectuée
 			if (deltaE>0 && (Math.random() > probaAcceptation)) {
@@ -110,11 +107,10 @@ public class Recuit {
 			
 			}
 			
-	//		System.out.println((double)((int)(this.energie*1000))/1000);
 			
-			// Impression de l'énergie courante et de la meilleure énergie
-	//		System.out.print("E = "+(double)((int)(this.energie*1000))/1000+"   ");
-		//	System.out.println("Ebest = "+(double)((int)(this.meilleureEnergie*1000))/1000);
+			// Impression de l'énergie courante (commenter ou décommenter)
+				// System.out.println((double)((int)(this.energie*1000))/1000);
+			
 			energieMoy[j - 1] += this.energie;
 			
 		}

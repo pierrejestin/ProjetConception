@@ -1,7 +1,11 @@
+
 import java.util.Iterator;
+
+// Implémentation de l'interface IEnergie pour faire le lien entre Energie et Latence Moyenne
 
 public class LatenceMoyenne implements IEnergie {
 
+	// Calcul de la latence moyenne dans le problème de routage
 	public double calculer(Probleme probleme) {
 		
 		Routage routage = (Routage)	probleme;

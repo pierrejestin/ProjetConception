@@ -1,6 +1,7 @@
 import java.util.Iterator;
 import java.util.Set;
 
+// Implémentation de l'interface IMutation sous la forme d'une mutation aléatoire du routage
 
 public class MutationAleatoireRoutage implements IMutation {
 

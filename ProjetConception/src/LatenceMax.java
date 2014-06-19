@@ -1,5 +1,7 @@
 import java.util.Iterator;
 
+//Implémentation de l'interface IEnergie pour faire le lien entre Energie et Latence Max
+
 public class LatenceMax implements IEnergie {
 
 		public double calculer(Probleme probleme) {
